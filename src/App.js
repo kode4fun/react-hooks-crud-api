@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AddUser from './AddUser';
-import './App.css';
 import './UsersList'
 import UsersList from './UsersList';
 
