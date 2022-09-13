@@ -6,3 +6,6 @@ Inspired from [Taniarascia blog](https://www.taniarascia.com/crud-app-in-react-w
 
 ### `npm install`
 ### `npm run start`
+
+![App Screenshot](app-screenshot.png)
+
