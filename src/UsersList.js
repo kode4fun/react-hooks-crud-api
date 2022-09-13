@@ -6,6 +6,10 @@ function UsersList(props) {
         props.deleteUserFunc(user);
     }
 
+    const handleEditUser = (user) => {
+        props.editUserFunc(user);
+    }
+
     return (
         <table className='table'>
             <thead>
@@ -22,7 +26,7 @@ function UsersList(props) {
                             <td>{user.name}</td>
                             <td>{user.username}</td>
                             <td>
-                                <button className='btn btn-primary'>Edit</button>
+                                <button className='btn btn-primary' onClick={() => handleEditUser(user)}>Edit</button>
                                 <button className='btn btn-primary' onClick={() => handleDeleteUser(user)}>Delete</button>
                             </td>
                         </tr>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AddUser from './AddUser';
+import EditUser from './EditUser';
 import './UsersList'
 import UsersList from './UsersList';
 
@@ -7,6 +8,8 @@ import UsersList from './UsersList';
 function App() {
 
   const [users, setUsers] = useState([]);
+  const [isEditUser, setIsEditUser] = useState(false);
+  const [editUser, setEditUser] = useState({});
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -45,17 +48,46 @@ function App() {
       });
   }
 
+  const editUserFunc = (user) => {
+    setIsEditUser(true);
+    const editUsr = {
+      id: user.id,
+      name: user.name,
+      username: user.username
+    };
+    setEditUser(editUsr);
+  }
+
+  const modifyUserFunc = (user) => {
+    if(isEditUser){
+      const updatedUsers = users.filter((u) => u.id != user.id);
+      setUsers([...updatedUsers, user]);
+    }
+  }
+
   return (
     <div className='container'>
       <h1>CRUD App with Hooks</h1>
       <div className='row'>
         <div className='col'>
-          <h2>Add User</h2>
-          <AddUser addUserFunc={addUserFunc} />
+          {
+            isEditUser ? (
+              <>
+                <h2>Edit User</h2>
+                <EditUser user={editUser} modifyUserFunc={modifyUserFunc} />
+              </>
+            ) : (
+              <>
+                <h2>Add User</h2>
+                <AddUser addUserFunc={addUserFunc} />
+              </>
+            )
+          }
+
         </div>
         <div className='col'>
           <h2>View Users</h2>
-          <UsersList users={users} deleteUserFunc={deleteUserFunc} />
+          <UsersList users={users} deleteUserFunc={deleteUserFunc} editUserFunc={editUserFunc} />
         </div>
       </div>
     </div>
